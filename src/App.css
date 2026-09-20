@@ -1,0 +1,403 @@
+/* App.css - Component-specific styles */
+/* Deaf/HoH Accessibility Component Styles */
+
+/* Sound state indicator for components with audio */
+.audio-state-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.audio-state-indicator.playing {
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--accent-purple);
+}
+
+.audio-state-indicator.muted {
+  background: rgba(100, 94, 115, 0.1);
+  color: var(--text-muted);
+}
+
+/* Visual notification pulse */
+.notification-pulse {
+  position: relative;
+}
+
+.notification-pulse::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 2px solid var(--accent-purple);
+  border-radius: inherit;
+  animation: notificationPulse 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes notificationPulse {
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+/* Focus indicator enhancement for Deaf users who rely on visual cues */
+.focus-enhanced:focus {
+  outline: 4px solid var(--accent-purple);
+  outline-offset: 4px;
+  box-shadow: 0 0 0 8px rgba(37, 99, 235, 0.2);
+}
+
+/* Message status visual indicators */
+.message-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.message-status.sent::before {
+  content: '✓';
+  color: var(--text-muted);
+}
+
+.message-status.delivered::before {
+  content: '✓✓';
+  color: var(--text-muted);
+}
+
+.message-status.read::before {
+  content: '✓✓';
+  color: var(--success);
+}
+
+/* Live region styling for important announcements */
+.live-announcement {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 16px 32px;
+  background: var(--card-bg);
+  border: 2px solid var(--accent-purple);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateX(-50%) translateY(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Accessibility preference toggles */
+.a11y-toggle-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+}
+
+.a11y-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+
+.a11y-toggle label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* Caption display preferences */
+.caption-size-large .caption-container {
+  font-size: 1.4rem;
+}
+
+.caption-size-xlarge .caption-container {
+  font-size: 1.6rem;
+  padding: 16px 24px;
+}
+
+/* Ensure all buttons have minimum size for motor accessibility */
+.header-actions {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  gap: 8px;
+}
+
+.accessible-btn {
+  position: relative;
+  overflow: hidden;
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.accessible-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: left 0.5s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .accessible-btn:not(:disabled):hover::after {
+    left: 150%;
+  }
+
+  .accessible-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .accessible-btn:active {
+    transform: translateY(1px);
+  }
+}
+
+/* Remove animation when user prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .accessible-btn::after {
+    display: none;
+  }
+
+  .accessible-btn:hover,
+  .accessible-btn:active {
+    transform: none;
+  }
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.shadow-soft {
+  box-shadow: 0 20px 30px rgba(9, 20, 38, 0.05);
+}
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+}
+
+/* Ensure hover states also apply to focus for keyboard/eye-tracking users */
+.accessible-btn:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* ── Bento Grid — Hiring Journey Section ── */
+.bento-grid-container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+}
+
+.bento-grid-container>div:nth-child(1) {
+  grid-column: span 12;
+}
+
+.bento-grid-container>div:nth-child(2) {
+  grid-column: span 12;
+}
+
+.bento-grid-container>div:nth-child(3) {
+  grid-column: span 12;
+}
+
+.bento-grid-container>div:nth-child(4) {
+  grid-column: span 12;
+}
+
+@media (min-width: 768px) {
+  .bento-grid-container>div:nth-child(1) {
+    grid-column: span 8;
+  }
+
+  .bento-grid-container>div:nth-child(2) {
+    grid-column: span 4;
+  }
+
+  .bento-grid-container>div:nth-child(3) {
+    grid-column: span 4;
+  }
+
+  .bento-grid-container>div:nth-child(4) {
+    grid-column: span 8;
+  }
+
+  .bento-card-wide {
+    flex-direction: row !important;
+  }
+
+  .bento-card-wide-reverse {
+    flex-direction: row-reverse !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════ */
+/* ── NAVBAR: desktop / mobile visibility switch (was missing) ── */
+/* ══════════════════════════════════════════════════════════ */
+.desktop-only {
+  display: inline-flex;
+  align-items: center;
+}
+
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .desktop-only {
+    display: none !important;
+  }
+
+  .mobile-only {
+    display: flex !important;
+  }
+}
+
+/* Header inner padding tightens on small screens so the pill nav
+   doesn't collide with screen edges */
+@media (max-width: 600px) {
+  .header-glass,
+  header {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════ */
+/* ── BRAND LOGO / FAVICON — one consistent size everywhere ── */
+/* ══════════════════════════════════════════════════════════ */
+.brand-logo-badge {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.brand-logo-badge img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  border-radius: 50%;
+  display: block;
+}
+
+@media (max-width: 480px) {
+  .brand-logo-badge {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+  }
+
+  .brand-logo-badge img {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════ */
+/* ── FOOTER: responsive grid (replaces ad-hoc flex-wrap) ── */
+/* ══════════════════════════════════════════════════════════ */
+.site-footer-grid {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) 2.2fr;
+  gap: 48px;
+  margin-bottom: 32px;
+}
+
+.footer-links-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 900px) {
+  .site-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .footer-links-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px 20px;
+  }
+}
+
+@media (max-width: 420px) {
+  .footer-links-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════ */
+/* ── HERO CTA BUTTONS (Browse Jobs / I'm an Employer) ── */
+/* ══════════════════════════════════════════════════════════ */
+.hero-cta-group {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.hero-cta-group > button {
+  flex: 0 0 auto;
+}
+
+@media (max-width: 520px) {
+  .hero-cta-group {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-cta-group > button {
+    width: 100%;
+    justify-content: center;
+  }
+}
